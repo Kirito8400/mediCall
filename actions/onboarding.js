@@ -14,12 +14,41 @@ export async function setUserRole(formData) {
     throw new Error("Unauthorized");
   }
 
-  // Find user in our database
-  const user = await db.user.findUnique({
+  // Find user in our database, create if doesn't exist
+  let user = await db.user.findUnique({
     where: { clerkUserId: userId },
   });
 
-  if (!user) throw new Error("User not found in database");
+  // If user doesn't exist, create them first
+  if (!user) {
+    const { currentUser } = await import("@clerk/nextjs/server");
+    const clerkUser = await currentUser();
+    
+    if (!clerkUser) {
+      throw new Error("Unable to get user information from Clerk");
+    }
+
+    const name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || 'User';
+
+    user = await db.user.create({
+      data: {
+        clerkUserId: userId,
+        name,
+        imageUrl: clerkUser.imageUrl,
+        email: clerkUser.emailAddresses[0]?.emailAddress || '',
+        transactions: {
+          create: {
+            type: "CREDIT_PURCHASE",
+            packageId: "free_user",
+            amount: 0,
+          },
+        },
+      },
+      include: {
+        transactions: true,
+      },
+    });
+  }
 
   const role = formData.get("role");
 

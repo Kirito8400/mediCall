@@ -16,7 +16,7 @@ export default async function DoctorsPage() {
           <Link key={specialty.name} href={`/doctors/${specialty.name}`}>
             <Card className="hover:border-emerald-700/40 transition-all cursor-pointer border-emerald-900/20 h-full">
               <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
-                <div className="w-12 h-12 rounded-full bg-emerald-900/20 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#38B6FF]/20 flex items-center justify-center mb-4">
                   <div className="text-emerald-400">{specialty.icon}</div>
                 </div>
                 <h3 className="font-medium text-white">{specialty.name}</h3>

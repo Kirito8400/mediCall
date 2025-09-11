@@ -22,15 +22,16 @@ export default async function Header() {
 
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-10 supports-[backdrop-filter]:bg-background/60">
-      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <nav className="px-16 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 cursor-pointer">
           <Image
-            src="/logo-single.png"
+            src="/logo2.png"
             alt="Medimeet Logo"
             width={200}
             height={60}
             className="h-10 w-auto object-contain"
           />
+          <span className="logo_text">MediCall</span>
         </Link>
 
         {/* Action Buttons */}
@@ -105,10 +106,10 @@ export default async function Header() {
             <Link href={user?.role === "PATIENT" ? "/pricing" : "/doctor"}>
               <Badge
                 variant="outline"
-                className="h-9 bg-emerald-900/20 border-emerald-700/30 px-3 py-1 flex items-center gap-2"
+                className="h-9 bg-[#38B6FF]/20 border-emerald-700/30 px-3 py-1 flex items-center gap-2"
               >
-                <CreditCard className="h-3.5 w-3.5 text-emerald-400" />
-                <span className="text-emerald-400">
+                <CreditCard className="h-3.5 w-3.5 text-white" />
+                <span className="text-white">
                   {user && user.role !== "ADMIN" ? (
                     <>
                       {user.credits}{" "}

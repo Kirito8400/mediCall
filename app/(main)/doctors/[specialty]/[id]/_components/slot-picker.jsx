@@ -49,7 +49,7 @@ export function SlotPicker({ days, onSelectSlot }) {
                 <div>({format(new Date(day.date), "EEE")})</div>
               </div>
               {day.slots.length > 0 && (
-                <div className="ml-2 bg-emerald-900/30 text-emerald-400 text-xs px-2 py-1 rounded">
+                <div className="ml-2 bg-[#38B6FF]/30 text-emerald-400 text-xs px-2 py-1 rounded">
                   {day.slots.length}
                 </div>
               )}
@@ -74,7 +74,7 @@ export function SlotPicker({ days, onSelectSlot }) {
                       key={slot.startTime}
                       className={`border-emerald-900/20 cursor-pointer transition-all ${
                         selectedSlot?.startTime === slot.startTime
-                          ? "bg-emerald-900/30 border-emerald-600"
+                          ? "bg-[#38B6FF]/30 border-emerald-600"
                           : "hover:border-emerald-700/40"
                       }`}
                       onClick={() => handleSlotSelect(slot)}

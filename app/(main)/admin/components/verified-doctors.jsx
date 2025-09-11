@@ -153,7 +153,7 @@ export function VerifiedDoctors({ doctors }) {
                             <>
                               <Badge
                                 variant="outline"
-                                className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                                className="bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400"
                               >
                                 Active
                               </Badge>

@@ -94,7 +94,7 @@ export default function OnboardingPage() {
           onClick={() => !loading && handlePatientSelection()}
         >
           <CardContent className="pt-6 pb-6 flex flex-col items-center text-center">
-            <div className="p-4 bg-emerald-900/20 rounded-full mb-4">
+            <div className="p-4 bg-[#38B6FF]/20 rounded-full mb-4">
               <User className="h-8 w-8 text-emerald-400" />
             </div>
             <CardTitle className="text-xl font-semibold text-white mb-2">
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
           onClick={() => !loading && setStep("doctor-form")}
         >
           <CardContent className="pt-6 pb-6 flex flex-col items-center text-center">
-            <div className="p-4 bg-emerald-900/20 rounded-full mb-4">
+            <div className="p-4 bg-[#38B6FF]/20 rounded-full mb-4">
               <Stethoscope className="h-8 w-8 text-emerald-400" />
             </div>
             <CardTitle className="text-xl font-semibold text-white mb-2">

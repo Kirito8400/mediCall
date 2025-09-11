@@ -232,7 +232,7 @@ export default function VideoCall({ sessionId, token }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Publisher (Your video) */}
               <div className="border border-emerald-900/20 rounded-lg overflow-hidden">
-                <div className="bg-emerald-900/10 px-3 py-2 text-emerald-400 text-sm font-medium">
+                <div className="bg-[#38B6FF]/10 px-3 py-2 text-emerald-400 text-sm font-medium">
                   You
                 </div>
                 <div
@@ -251,7 +251,7 @@ export default function VideoCall({ sessionId, token }) {
 
               {/* Subscriber (Other person's video) */}
               <div className="border border-emerald-900/20 rounded-lg overflow-hidden">
-                <div className="bg-emerald-900/10 px-3 py-2 text-emerald-400 text-sm font-medium">
+                <div className="bg-[#38B6FF]/10 px-3 py-2 text-emerald-400 text-sm font-medium">
                   Other Participant
                 </div>
                 <div

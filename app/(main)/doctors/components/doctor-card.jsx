@@ -9,7 +9,7 @@ export function DoctorCard({ doctor }) {
     <Card className="border-emerald-900/20 hover:border-emerald-700/40 transition-all">
       <CardContent>
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-emerald-900/20 flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-full bg-[#38B6FF]/20 flex items-center justify-center flex-shrink-0">
             {doctor.imageUrl ? (
               <img
                 src={doctor.imageUrl}
@@ -26,7 +26,7 @@ export function DoctorCard({ doctor }) {
               <h3 className="font-medium text-white text-lg">{doctor.name}</h3>
               <Badge
                 variant="outline"
-                className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400 self-start"
+                className="bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400 self-start"
               >
                 <Star className="h-3 w-3 mr-1" />
                 Verified

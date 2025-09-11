@@ -126,5 +126,6 @@
 }
 
 @utility gradient-title {
-  @apply gradient font-bold text-transparent bg-clip-text pb-1 pr-2;
+  /* @apply gradient font-bold text-transparent bg-clip-text pb-1 pr-2; */
+  @apply text-[#38B6FF];
 }

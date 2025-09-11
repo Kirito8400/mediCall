@@ -67,7 +67,7 @@ export function DoctorProfile({ doctor, availableDays }) {
           <Card className="border-emerald-900/20">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 bg-emerald-900/20">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 bg-[#38B6FF]/20">
                   {doctor.imageUrl ? (
                     <Image
                       src={doctor.imageUrl}
@@ -88,7 +88,7 @@ export function DoctorProfile({ doctor, availableDays }) {
 
                 <Badge
                   variant="outline"
-                  className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400 mb-4"
+                  className="bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400 mb-4"
                 >
                   {doctor.specialty}
                 </Badge>
@@ -144,7 +144,7 @@ export function DoctorProfile({ doctor, availableDays }) {
               </p>
             </div>
 
-            <Separator className="bg-emerald-900/20" />
+            <Separator className="bg-[#38B6FF]/20" />
 
             <div className="space-y-4">
               <div className="flex items-center gap-2">

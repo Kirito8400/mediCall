@@ -121,7 +121,7 @@ export function AvailabilitySettings({ slots }) {
                       key={slot.id}
                       className="flex items-center p-3 rounded-md bg-muted/20 border border-emerald-900/20"
                     >
-                      <div className="bg-emerald-900/20 p-2 rounded-full mr-3">
+                      <div className="bg-[#38B6FF]/20 p-2 rounded-full mr-3">
                         <Clock className="h-4 w-4 text-emerald-400" />
                       </div>
                       <div>

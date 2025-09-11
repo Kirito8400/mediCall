@@ -269,7 +269,7 @@ export function AppointmentCard({
                 variant="outline"
                 className={
                   appointment.status === "COMPLETED"
-                    ? "bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                    ? "bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400"
                     : appointment.status === "CANCELLED"
                     ? "bg-red-900/20 border-red-900/30 text-red-400"
                     : "bg-amber-900/20 border-amber-900/30 text-amber-400"
@@ -384,7 +384,7 @@ export function AppointmentCard({
                 variant="outline"
                 className={
                   appointment.status === "COMPLETED"
-                    ? "bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                    ? "bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400"
                     : appointment.status === "CANCELLED"
                     ? "bg-red-900/20 border-red-900/30 text-red-400"
                     : "bg-amber-900/20 border-amber-900/30 text-amber-400"
@@ -453,7 +453,7 @@ export function AppointmentCard({
                       variant="ghost"
                       size="sm"
                       onClick={() => setAction("notes")}
-                      className="h-7 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/20"
+                      className="h-7 text-emerald-400 hover:text-emerald-300 hover:bg-[#38B6FF]/20"
                     >
                       <Edit className="h-3.5 w-3.5 mr-1" />
                       {appointment.notes ? "Edit" : "Add"}

@@ -91,7 +91,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
                   ${availablePayout.toFixed(2)} available for payout
                 </p>
               </div>
-              <div className="bg-emerald-900/20 p-3 rounded-full">
+              <div className="bg-[#38B6FF]/20 p-3 rounded-full">
                 <Coins className="h-6 w-6 text-emerald-400" />
               </div>
             </div>
@@ -107,7 +107,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
                   ${thisMonthEarnings.toFixed(2)}
                 </p>
               </div>
-              <div className="bg-emerald-900/20 p-3 rounded-full">
+              <div className="bg-[#38B6FF]/20 p-3 rounded-full">
                 <TrendingUp className="h-6 w-6 text-emerald-400" />
               </div>
             </div>
@@ -126,7 +126,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
                 </p>
                 <p className="text-xs text-muted-foreground">completed</p>
               </div>
-              <div className="bg-emerald-900/20 p-3 rounded-full">
+              <div className="bg-[#38B6FF]/20 p-3 rounded-full">
                 <Calendar className="h-6 w-6 text-emerald-400" />
               </div>
             </div>
@@ -142,7 +142,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
                   ${averageEarningsPerMonth.toFixed(2)}
                 </p>
               </div>
-              <div className="bg-emerald-900/20 p-3 rounded-full">
+              <div className="bg-[#38B6FF]/20 p-3 rounded-full">
                 <BarChart3 className="h-6 w-6 text-emerald-400" />
               </div>
             </div>
@@ -175,7 +175,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
               ) : (
                 <Badge
                   variant="outline"
-                  className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                  className="bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400"
                 >
                   Available
                 </Badge>
@@ -289,7 +289,7 @@ export function DoctorEarnings({ earnings, payouts = [] }) {
                       variant="outline"
                       className={
                         payout.status === "PROCESSED"
-                          ? "bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                          ? "bg-[#38B6FF]/20 border-emerald-900/30 text-emerald-400"
                           : "bg-amber-900/20 border-amber-900/30 text-amber-400"
                       }
                     >

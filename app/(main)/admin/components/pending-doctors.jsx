@@ -170,7 +170,7 @@ export function PendingDoctors({ doctors }) {
                 </div>
               </div>
 
-              <Separator className="bg-emerald-900/20" />
+              <Separator className="bg-[#38B6FF]/20" />
 
               {/* Professional Details */}
               <div className="space-y-4">
@@ -217,7 +217,7 @@ export function PendingDoctors({ doctors }) {
                 </div>
               </div>
 
-              <Separator className="bg-emerald-900/20" />
+              <Separator className="bg-[#38B6FF]/20" />
 
               {/* Description */}
               <div className="space-y-2">

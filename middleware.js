@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { db } from "./lib/prisma";
 
 const isProtectedRoute = createRouteMatcher([
   "/doctors(.*)",
@@ -10,12 +11,33 @@ const isProtectedRoute = createRouteMatcher([
   "/appointments(.*)",
 ]);
 
+const isOnboardingRoute = createRouteMatcher(["/onboarding(.*)"]);
+
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
 
   if (!userId && isProtectedRoute(req)) {
     const { redirectToSignIn } = await auth();
     return redirectToSignIn();
+  }
+
+  // If user is authenticated, check if they need onboarding
+  if (userId && !isOnboardingRoute(req)) {
+    try {
+      const user = await db.user.findUnique({
+        where: { clerkUserId: userId },
+        select: { role: true }
+      });
+
+      // Redirect to onboarding if user has UNASSIGNED role
+      if (user && user.role === "UNASSIGNED") {
+        const onboardingUrl = new URL("/onboarding", req.url);
+        return NextResponse.redirect(onboardingUrl);
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error);
+      // Continue without redirect if there's a database error
+    }
   }
 
   return NextResponse.next();
