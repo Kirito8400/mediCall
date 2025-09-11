@@ -12,8 +12,8 @@ export default function Home() {
     <div className="bg-background">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-32">
-        <div className="px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="px-4 md:px-8 pt-8 md:pt-0 lg:px-16">
+          <div className=" flex flex-col-reverse  md:grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
             <div className="space-y-8">
               <Badge
                 variant="outline"
@@ -22,8 +22,8 @@ export default function Home() {
                 Healthcare made simple
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Join with doctors <br />
-                <span className="gradient-title">anytime, anywhere</span>
+                Join with doctors 
+                <span className="gradient-title"> anytime, anywhere</span>
               </h1>
               <p className="text-muted-foreground text-lg md:text-xl max-w-md">
                 Book appointments, consult via video, and manage your healthcare

@@ -22,7 +22,7 @@ export default async function Header() {
 
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-10 supports-[backdrop-filter]:bg-background/60">
-      <nav className="px-16 h-16 flex items-center justify-between">
+      <nav className="container h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 cursor-pointer">
           <Image
             src="/logo2.png"
@@ -31,7 +31,7 @@ export default async function Header() {
             height={60}
             className="h-10 w-auto object-contain"
           />
-          <span className="logo_text">MediCall</span>
+          <span className="logo_text hidden md:inline-block">MediCall</span>
         </Link>
 
         {/* Action Buttons */}

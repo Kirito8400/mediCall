@@ -7,6 +7,23 @@ button {
   cursor: pointer !important;
 }
 
+.container{
+  padding: 0 4rem !important;
+  max-width: unset !important;
+}
+
+@media(max-width: 1040px){
+  .container{
+    padding: 0 2rem !important;
+  }
+}
+
+@media(max-width: 480px){
+  .container{
+    padding: 0 1rem !important;
+  }
+}
+
 .logo_text {
   font-size: 30px;
   font-weight: 800;
