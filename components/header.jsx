@@ -4,6 +4,7 @@ import {
   Calendar,
   CreditCard,
   ShieldCheck,
+  ShoppingBag,
   Stethoscope,
   User,
 } from "lucide-react";
@@ -31,7 +32,7 @@ export default async function Header() {
             height={60}
             className="h-10 w-auto object-contain"
           />
-          <span className="logo_text hidden md:inline-block">MediCall</span>
+          <span className="logo_text hidden md:inline-block">MediConnect</span>
         </Link>
 
         {/* Action Buttons */}
@@ -101,6 +102,20 @@ export default async function Header() {
               </Link>
             )}
           </SignedIn>
+
+          {/* Shop Link - Available to all signed-in users */}
+          <Link href="/shop">
+            <Button
+              variant="outline"
+              className="hidden md:inline-flex items-center gap-2"
+            >
+              <ShoppingBag className="h-4 w-4" />
+              Medical Shop
+            </Button>
+            <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
+              <ShoppingBag className="h-4 w-4" />
+            </Button>
+          </Link>
 
           {(!user || user?.role !== "ADMIN") && (
             <Link href={user?.role === "PATIENT" ? "/pricing" : "/doctor"}>

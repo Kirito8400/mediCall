@@ -91,3 +91,7 @@ a[data-slot="button"] {
   --tw-gradient-position: to bottom in oklab;
   background-image: none;
 }
+
+.product-card{
+  padding-top: 0 !important;
+}

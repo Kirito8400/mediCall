@@ -52,7 +52,7 @@ export default function Home() {
 
             <div className="relative w-full h-auto aspect-square rounded-xl overflow-hidden">
               <img
-                src="/doctor1svg.svg"
+                src="/doctor1.png"
                 alt="Doctor consultation"
                 // fill
                 // priority
