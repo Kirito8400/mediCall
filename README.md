@@ -1,11 +1,256 @@
 # 🏥 Full Stack Doctors Appointment Platform
 
-A comprehensive healthcare platform built with Next.js 15, featuring video consultations, appointment booking, credit-based payments, and multi-role user management.
+## 📋 Application Description
 
-## 🎥 Tutorial
-**YouTube Tutorial:** https://www.youtube.com/watch?v=ID1PRFF1dlw
+A comprehensive healthcare platform built with Next.js 15, designed to connect patients with healthcare providers through a seamless digital experience. The platform facilitates medical appointment booking, video consultations, credit-based payments, and a medical products shop, all within an intuitive and secure environment.
 
-![Platform Screenshot](https://github.com/user-attachments/assets/a0d3d443-f5e1-433a-85a7-a76a3866858d)
+### Core Functionality
+
+- **User Role Management**: Multi-role system supporting patients, doctors, and administrators
+- **Appointment Booking**: Intuitive scheduling system with availability management
+- **Video Consultations**: Secure, HIPAA-compliant video sessions for remote healthcare
+- **Credit System**: Flexible payment model with credit packages and doctor payouts
+- **Medical Products Shop**: E-commerce functionality for healthcare products
+- **Admin Dashboard**: Comprehensive tools for platform management and oversight
+
+## 🚀 Features
+
+### User Management
+- **Role-Based Access Control**: Different interfaces and permissions for patients, doctors, and administrators
+- **Profile Management**: Comprehensive profile creation and management for all user types
+- **Authentication**: Secure sign-in/sign-up flows with Clerk integration
+- **Onboarding**: Guided role selection and profile completion process
+
+### Appointment System
+- **Doctor Discovery**: Browse and filter doctors by specialty, experience, and ratings
+- **Availability Management**: Doctors can set their available time slots
+- **Booking Flow**: Streamlined appointment creation with credit verification
+- **Appointment Management**: View, reschedule, and cancel appointments
+- **Notifications**: Booking confirmations and appointment reminders
+
+### Video Consultation
+- **Secure Video Sessions**: End-to-end encrypted video calls via Vonage API
+- **Session Management**: Join, conduct, and end consultations
+- **Chat Functionality**: Text communication during video sessions
+- **Screen Sharing**: Share medical documents and test results
+
+### Credit System
+- **Credit Packages**: Various credit purchase options
+- **Transaction History**: Complete record of credit usage
+- **Doctor Payouts**: Revenue sharing model for healthcare providers
+- **Billing Integration**: Secure payment processing through Clerk
+
+### Medical Products Shop
+- **Product Catalog**: Extensive range of medical products across categories
+- **Search & Filter**: Find products by category, price range, and keywords
+- **Shopping Cart**: Add, remove, and manage items
+- **View Options**: Toggle between grid and list views
+- **Stock Management**: Real-time product availability indicators
+
+### Admin Tools
+- **User Management**: Oversee all platform users
+- **Doctor Verification**: Review and approve healthcare provider applications
+- **Payout Processing**: Manage doctor compensation
+- **Analytics Dashboard**: Monitor platform usage and performance
+
+## 👥 User Role Interfaces
+
+### Patient Interface
+
+**Available Features:**
+- Browse doctors by specialty and availability
+- Book, reschedule, and cancel appointments
+- Join video consultations
+- Purchase and manage credits
+- View appointment history
+- Shop for medical products
+- Manage shopping cart and wishlist
+- Update personal profile
+
+**Interface Description:**
+- Patient dashboard with appointment calendar
+- Doctor listing with filtering options
+- Credit purchase interface with package selection
+- Video consultation room with controls
+- Medical products shop with category navigation
+
+### Doctor Interface
+
+**Available Features:**
+- Complete profile with medical credentials
+- Set and update availability schedule
+- View upcoming and past appointments
+- Conduct video consultations
+- Track earnings and request payouts
+- Update professional information
+
+**Interface Description:**
+- Doctor dashboard with appointment schedule
+- Availability calendar with time slot management
+- Patient appointment details view
+- Video consultation room with medical notes
+- Earnings tracker and payout request form
+
+### Admin Interface
+
+**Available Features:**
+- Review and verify doctor applications
+- Manage all platform users
+- Process doctor payouts
+- View platform analytics and metrics
+- Moderate content and resolve issues
+
+**Interface Description:**
+- Admin dashboard with key metrics
+- User management interface with search and filter
+- Doctor verification queue with application details
+- Payout management system
+- Platform analytics with usage statistics
+
+## ⚙️ Setup and Installation
+
+### Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn package manager
+- PostgreSQL database (local or cloud-based)
+- Clerk account for authentication
+- Vonage Video API account
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd doctors-appointment-platform
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your credentials
+   ```
+
+4. **Set up the database**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+6. **Access the application**
+   Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## 🔧 Configuration Options
+
+### Environment Variables
+
+Create a `.env.local` file with the following variables:
+
+```bash
+# Database Configuration
+DATABASE_URL="postgresql://username:password@host:port/database"
+
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
+
+# Clerk URLs (Optional)
+NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/onboarding"
+
+# Vonage Video API
+NEXT_PUBLIC_VONAGE_APPLICATION_ID="your_vonage_application_id"
+VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour_Private_Key_Here\n-----END PRIVATE KEY-----"
+
+# Node Environment
+NODE_ENV="development"
+```
+
+### Service Configuration
+
+#### 1. Database (Neon PostgreSQL)
+
+1. Create an account at [Neon](https://neon.tech)
+2. Create a new project and database
+3. Copy the connection string to your `.env.local` file
+
+#### 2. Clerk Authentication
+
+1. Create an account at [Clerk](https://clerk.com)
+2. Create a new application
+3. Configure sign-in/sign-up options
+4. Set up billing for credit purchases
+5. Copy API keys to your `.env.local` file
+
+#### 3. Vonage Video API
+
+1. Create an account at [Vonage API Dashboard](https://dashboard.nexmo.com/)
+2. Create a new Video API application
+3. Generate a private key
+4. Copy the Application ID and Private Key to your `.env.local` file
+
+## 📝 Usage Examples
+
+### Patient: Booking an Appointment
+
+1. Sign in as a patient
+2. Navigate to the "Find Doctors" page
+3. Filter doctors by specialty (e.g., Cardiology)
+4. Select a doctor and view their profile
+5. Choose an available time slot
+6. Confirm booking (requires 2 credits)
+7. Receive confirmation and appointment details
+
+### Doctor: Setting Availability
+
+1. Sign in as a doctor
+2. Navigate to the "Availability" section
+3. Select dates and times when you're available
+4. Save your availability schedule
+5. Patients can now book during these times
+
+### Video Consultation
+
+1. Both patient and doctor sign in before appointment time
+2. Navigate to the appointment details
+3. Click "Join Video Call" when the appointment time arrives
+4. Grant camera and microphone permissions
+5. Conduct the consultation
+6. End the call when finished
+
+### Shopping for Medical Products
+
+1. Navigate to the "Shop" section
+2. Browse products by category or use the search function
+3. Filter by price range if needed
+4. Toggle between grid and list views
+5. Add products to your cart
+6. Review cart and proceed to checkout
+
+### Admin: Verifying a Doctor
+
+1. Sign in as an admin
+2. Navigate to the "Doctor Verification" section
+3. Review pending applications
+4. Check submitted credentials and documentation
+5. Approve or reject the application
+6. Doctor receives notification of the decision
 
 ## 🚀 Tech Stack
 
@@ -43,6 +288,7 @@ doctors-appointment-platform/
 │   │   ├── doctors/           # Doctor listings
 │   │   ├── onboarding/        # Role selection
 │   │   ├── pricing/           # Credit packages
+│   │   ├── shop/              # Medical products shop
 │   │   └── video-call/        # Video consultation
 │   ├── favicon.ico            # App favicon
 │   ├── globals.css            # Global styles
@@ -60,6 +306,7 @@ doctors-appointment-platform/
 ├── 📁 lib/                     # Utility libraries
 │   ├── checkUser.js           # User authentication helper
 │   ├── data.js                # Static data (features, testimonials)
+│   ├── medical-products.js    # Medical products data and utilities
 │   ├── prisma.js              # Prisma client configuration
 │   ├── schema.js              # Zod validation schemas
 │   ├── specialities.js        # Medical specialties data
@@ -71,411 +318,13 @@ doctors-appointment-platform/
 │   ├── banner.png             # Hero section images
 │   ├── banner2.png
 │   ├── logo-single.png        # App logos
-│   └── logo.png
+│   ├── logo.png
+│   └── products/              # Product images and data
 ├── .env.example               # Environment variables template
 ├── middleware.js              # Clerk authentication middleware
 ├── next.config.mjs            # Next.js configuration
 └── package.json               # Dependencies and scripts
 ```
-
-## 🏗️ Architecture Overview
-
-### Frontend Components
-
-#### 1. **App Router Structure**
-- **Route Groups:** `(auth)` and `(main)` for organized routing
-- **Dynamic Routes:** `[specialty]` for doctor filtering
-- **Nested Layouts:** Role-specific layouts for different user types
-
-#### 2. **Key Components**
-
-```javascript
-// Header Component with Authentication
-components/header.jsx
-- Navigation menu
-- User authentication status
-- Role-based menu items
-- Clerk UserButton integration
-
-// Appointment Card Component
-components/appointment-card.jsx
-- Appointment details display
-- Status indicators
-- Action buttons (Join, Cancel)
-- Video call integration
-
-// Pricing Component
-components/pricing.jsx
-- Clerk PricingTable integration
-- Credit package display
-- Subscription management
-```
-
-#### 3. **UI Component System**
-- **Shadcn UI:** Pre-built accessible components
-- **Radix UI:** Headless component primitives
-- **Tailwind CSS:** Utility-first styling
-- **Theme System:** Dark/light mode support
-
-### Backend Architecture
-
-#### 1. **Server Actions**
-Next.js Server Actions provide type-safe backend functionality:
-
-```javascript
-// Appointment Booking Flow
-actions/appointments.js
-- bookAppointment()          # Create new appointment
-- generateVideoToken()       # Vonage video session
-- getAvailableTimeSlots()    # Doctor availability
-- getDoctorAppointments()    # Doctor's schedule
-
-// Credit Management
-actions/credits.js
-- deductCreditsForAppointment()  # Charge for booking
-- getUserCredits()               # Check balance
-- addCreditsToUser()             # Purchase credits
-
-// User Management
-actions/onboarding.js
-- assignUserRole()           # Set user type
-- completePatientProfile()   # Patient setup
-- completeDoctorProfile()    # Doctor setup
-```
-
-#### 2. **API Integration**
-
-**Vonage Video API:**
-```javascript
-// Video Session Management
-const credentials = new Auth({
-  applicationId: process.env.NEXT_PUBLIC_VONAGE_APPLICATION_ID,
-  privateKey: process.env.VONAGE_PRIVATE_KEY,
-});
-
-// Create video session for appointment
-const session = await vonage.video.createSession({
-  mediaMode: "routed"
-});
-```
-
-**Clerk Authentication:**
-```javascript
-// Protected route middleware
-export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
-  if (!userId && isProtectedRoute(req)) {
-    return redirectToSignIn();
-  }
-});
-```
-
-### Database Layer
-
-#### 1. **Prisma Schema**
-
-**Core Models:**
-```prisma
-model User {
-  id                String    @id @default(uuid())
-  clerkUserId       String    @unique
-  email             String    @unique
-  role              UserRole  @default(UNASSIGNED)
-  credits           Int       @default(2)
-  
-  // Doctor fields
-  specialty         String?
-  experience        Int?
-  verificationStatus VerificationStatus?
-  
-  // Relations
-  patientAppointments Appointment[] @relation("PatientAppointments")
-  doctorAppointments  Appointment[] @relation("DoctorAppointments")
-  availabilities      Availability[]
-  transactions        CreditTransaction[]
-}
-
-model Appointment {
-  id                String   @id @default(uuid())
-  patientId         String
-  doctorId          String
-  startTime         DateTime
-  endTime           DateTime
-  status            AppointmentStatus @default(SCHEDULED)
-  videoSessionId    String?  // Vonage session ID
-  
-  patient           User     @relation("PatientAppointments")
-  doctor            User     @relation("DoctorAppointments")
-}
-```
-
-#### 2. **Model Relationships**
-- **User ↔ Appointments:** Many-to-many (patient/doctor roles)
-- **User ↔ Availability:** One-to-many (doctor availability slots)
-- **User ↔ CreditTransaction:** One-to-many (credit history)
-- **User ↔ Payout:** One-to-many (doctor earnings)
-
-#### 3. **Enums & Status Management**
-```prisma
-enum UserRole {
-  UNASSIGNED  # New users
-  PATIENT     # Patients
-  DOCTOR      # Healthcare providers
-  ADMIN       # Platform administrators
-}
-
-enum AppointmentStatus {
-  SCHEDULED   # Upcoming appointment
-  COMPLETED   # Finished consultation
-  CANCELLED   # Cancelled by user
-}
-
-enum VerificationStatus {
-  PENDING     # Awaiting admin review
-  VERIFIED    # Approved doctor
-  REJECTED    # Denied application
-}
-```
-
-## 🔧 Core Functionality
-
-### 1. **User Management System**
-
-**Role-Based Access:**
-```javascript
-// lib/checkUser.js - User verification
-export async function checkUser() {
-  const user = await currentUser();
-  if (!user) return null;
-  
-  const existingUser = await db.user.findUnique({
-    where: { clerkUserId: user.id }
-  });
-  
-  if (!existingUser) {
-    // Create new user record
-    return await db.user.create({
-      data: {
-        clerkUserId: user.id,
-        email: user.emailAddresses[0].emailAddress,
-        name: user.fullName,
-        imageUrl: user.imageUrl,
-      }
-    });
-  }
-  
-  return existingUser;
-}
-```
-
-### 2. **Appointment Booking System**
-
-**Booking Flow:**
-1. **Doctor Selection:** Browse by specialty
-2. **Time Slot Selection:** Check availability
-3. **Credit Verification:** Ensure sufficient balance
-4. **Video Session Creation:** Generate Vonage session
-5. **Confirmation:** Send booking confirmation
-
-```javascript
-// Booking validation
-if (patient.credits < 2) {
-  throw new Error("Insufficient credits");
-}
-
-// Create video session
-const session = await vonage.video.createSession({
-  mediaMode: "routed"
-});
-
-// Book appointment
-const appointment = await db.appointment.create({
-  data: {
-    patientId: patient.id,
-    doctorId,
-    startTime,
-    endTime,
-    videoSessionId: session.sessionId,
-    patientDescription
-  }
-});
-```
-
-### 3. **Credit System**
-
-**Credit Management:**
-- **Purchase:** Clerk Billing integration
-- **Usage:** 2 credits per consultation
-- **Tracking:** Transaction history
-- **Payout:** Doctor earnings (80% revenue share)
-
-```javascript
-// Credit deduction
-export async function deductCreditsForAppointment(userId) {
-  await db.$transaction(async (tx) => {
-    // Deduct credits
-    await tx.user.update({
-      where: { id: userId },
-      data: { credits: { decrement: 2 } }
-    });
-    
-    // Record transaction
-    await tx.creditTransaction.create({
-      data: {
-        userId,
-        amount: -2,
-        type: "APPOINTMENT_DEDUCTION"
-      }
-    });
-  });
-}
-```
-
-### 4. **Video Consultation**
-
-**Vonage Integration:**
-```javascript
-// Generate video token for user
-export async function generateVideoToken(formData) {
-  const appointmentId = formData.get("appointmentId");
-  const appointment = await db.appointment.findUnique({
-    where: { id: appointmentId }
-  });
-  
-  const token = vonage.video.generateClientToken(
-    appointment.videoSessionId,
-    {
-      role: "publisher",
-      data: `userId=${userId}`,
-      expireTime: Math.round(Date.now() / 1000) + 7200 // 2 hours
-    }
-  );
-  
-  return { token, sessionId: appointment.videoSessionId };
-}
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-Create `.env.local` from `.env.example`:
-
-```bash
-# Database Configuration
-DATABASE_URL="postgresql://username:password@host:port/database"
-
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
-CLERK_SECRET_KEY="sk_test_..."
-
-# Clerk URLs (Optional)
-NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
-NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/onboarding"
-
-# Vonage Video API
-NEXT_PUBLIC_VONAGE_APPLICATION_ID="your_vonage_application_id"
-VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour_Private_Key_Here\n-----END PRIVATE KEY-----"
-
-# Node Environment
-NODE_ENV="development"
-```
-
-### Required Services Setup
-
-#### 1. **Database (Neon PostgreSQL)**
-```bash
-# Install Neon CLI
-npm install -g @neondatabase/cli
-
-# Create database
-neonctl databases create --name doctors-appointment
-
-# Get connection string
-neonctl connection-string
-```
-
-#### 2. **Clerk Authentication**
-```bash
-# Setup steps:
-1. Create account at https://clerk.com
-2. Create new application
-3. Configure sign-in/sign-up options
-4. Set up billing (for credit purchases)
-5. Copy API keys to .env.local
-```
-
-#### 3. **Vonage Video API**
-```bash
-# Setup steps:
-1. Create account at https://dashboard.nexmo.com/
-2. Create new Video API application
-3. Generate private key
-4. Copy Application ID and Private Key
-```
-
-## 🚀 Getting Started
-
-### Installation
-
-```bash
-# Clone repository
-git clone <repository-url>
-cd doctors-appointment-platform
-
-# Install dependencies
-npm install
-
-# Setup environment variables
-cp .env.example .env.local
-# Edit .env.local with your credentials
-
-# Setup database
-npx prisma generate
-npx prisma db push
-
-# Run development server
-npm run dev
-```
-
-### Development Scripts
-
-```bash
-npm run dev          # Start development server with Turbopack
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npx prisma studio    # Open Prisma database browser
-npx prisma generate  # Generate Prisma client
-npx prisma db push   # Push schema changes to database
-```
-
-## 👥 User Roles & Permissions
-
-### Patient Role
-- ✅ Browse doctors by specialty
-- ✅ Book appointments
-- ✅ Join video consultations
-- ✅ Purchase credit packages
-- ✅ View appointment history
-- ✅ Cancel appointments
-
-### Doctor Role
-- ✅ Complete profile verification
-- ✅ Set availability schedule
-- ✅ View patient appointments
-- ✅ Join video consultations
-- ✅ Request payouts
-- ✅ Update profile information
-
-### Admin Role
-- ✅ Verify doctor applications
-- ✅ Manage all users
-- ✅ Process doctor payouts
-- ✅ View platform analytics
-- ✅ Moderate content
 
 ## 🔒 Security Features
 
@@ -500,6 +349,9 @@ npx prisma db push   # Push schema changes to database
 - **Toast Notifications:** Sonner toast library
 - **Form Validation:** React Hook Form + Zod
 - **Accessibility:** ARIA labels and keyboard navigation
+- **Product Views:** Grid and list view options for shop products
+- **Interactive Cart:** Real-time cart updates with toast notifications
+- **Filtering UI:** Category and price range filters with instant results
 
 ## 📊 Performance Optimizations
 
