@@ -28,8 +28,12 @@ const ChatBox = () => {
   const [ttsSettings, setTtsSettings] = useState({
     volume: 0.8,
     rate: 1.0,
-    pitch: 1.0
+    pitch: 1.0,
+    language: 'en-US',
+    voice: null
   });
+  const [availableVoices, setAvailableVoices] = useState([]);
+  const [languageVoices, setLanguageVoices] = useState({});
   const [showTtsSettings, setShowTtsSettings] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -113,6 +117,33 @@ const ChatBox = () => {
       if ('speechSynthesis' in window) {
         setTtsSupported(true);
         speechSynthesisRef.current = window.speechSynthesis;
+        
+        // Load available voices
+        const loadVoices = () => {
+          const voices = speechSynthesisRef.current.getVoices();
+          setAvailableVoices(voices);
+          
+          // Group voices by language
+          const voicesByLang = {};
+          voices.forEach(voice => {
+            const langCode = voice.lang.split('-')[0];
+            if (!voicesByLang[voice.lang]) {
+              voicesByLang[voice.lang] = [];
+            }
+            voicesByLang[voice.lang].push(voice);
+          });
+          setLanguageVoices(voicesByLang);
+          
+          // Set default voice for current language
+          const defaultVoice = voices.find(voice => voice.lang === ttsSettings.language) || voices[0];
+          if (defaultVoice) {
+            setTtsSettings(prev => ({ ...prev, voice: defaultVoice }));
+          }
+        };
+        
+        // Load voices immediately and also on voiceschanged event
+        loadVoices();
+        speechSynthesisRef.current.onvoiceschanged = loadVoices;
       }
     }
   }, []);
@@ -194,6 +225,29 @@ const ChatBox = () => {
     }
   };
 
+  const detectLanguage = (text) => {
+    // Simple language detection based on character patterns
+    const hindiPattern = /[\u0900-\u097F]/;
+    const punjabiPattern = /[\u0A00-\u0A7F]/;
+    const gujaratiPattern = /[\u0A80-\u0AFF]/;
+    const bengaliPattern = /[\u0980-\u09FF]/;
+    const tamilPattern = /[\u0B80-\u0BFF]/;
+    const teluguPattern = /[\u0C00-\u0C7F]/;
+    const kannadaPattern = /[\u0C80-\u0CFF]/;
+    const malayalamPattern = /[\u0D00-\u0D7F]/;
+    
+    if (hindiPattern.test(text)) return 'hi-IN';
+    if (punjabiPattern.test(text)) return 'pa-IN';
+    if (gujaratiPattern.test(text)) return 'gu-IN';
+    if (bengaliPattern.test(text)) return 'bn-IN';
+    if (tamilPattern.test(text)) return 'ta-IN';
+    if (teluguPattern.test(text)) return 'te-IN';
+    if (kannadaPattern.test(text)) return 'kn-IN';
+    if (malayalamPattern.test(text)) return 'ml-IN';
+    
+    return 'en-US'; // Default to English
+  };
+
   const handleReadAloud = (text, messageId) => {
     if (!ttsSupported) {
       const errorResponse = {
@@ -220,6 +274,23 @@ const ChatBox = () => {
     utterance.rate = ttsSettings.rate;
     utterance.pitch = ttsSettings.pitch;
     
+    // Auto-detect language or use selected language
+    const detectedLang = detectLanguage(text);
+    const useLanguage = detectedLang !== 'en-US' ? detectedLang : ttsSettings.language;
+    utterance.lang = useLanguage;
+    
+    // Find appropriate voice for the language
+    const voicesForLang = languageVoices[useLanguage] || languageVoices[useLanguage.split('-')[0]] || [];
+    if (voicesForLang.length > 0) {
+      // Prefer female voices for better clarity, then any available voice
+      const preferredVoice = voicesForLang.find(v => v.name.toLowerCase().includes('female')) || 
+                           voicesForLang.find(v => v.name.toLowerCase().includes('woman')) ||
+                           voicesForLang[0];
+      utterance.voice = preferredVoice;
+    } else if (ttsSettings.voice) {
+      utterance.voice = ttsSettings.voice;
+    }
+    
     utterance.onstart = () => {
       setIsPlaying(true);
       setCurrentPlayingId(messageId);
@@ -230,17 +301,68 @@ const ChatBox = () => {
       setCurrentPlayingId(null);
     };
     
-    utterance.onerror = () => {
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
       setIsPlaying(false);
       setCurrentPlayingId(null);
+      
+      // Show error message for unsupported languages
+      if (event.error === 'language-not-supported') {
+        const errorResponse = {
+          id: Date.now(),
+          text: `Language ${useLanguage} is not supported. Falling back to English.`,
+          sender: "ai",
+          timestamp: new Date(),
+          isError: true,
+        };
+        setMessages((prev) => [...prev, errorResponse]);
+      }
     };
 
     speechSynthesisRef.current.speak(utterance);
   };
 
   const handleTtsSettingChange = (setting, value) => {
-    setTtsSettings(prev => ({ ...prev, [setting]: value }));
+    setTtsSettings(prev => {
+      const newSettings = { ...prev, [setting]: value };
+      
+      // When language changes, update the voice
+      if (setting === 'language') {
+        const voicesForLang = languageVoices[value] || [];
+        const defaultVoice = voicesForLang.find(v => v.default) || voicesForLang[0];
+        if (defaultVoice) {
+          newSettings.voice = defaultVoice;
+        }
+      }
+      
+      return newSettings;
+    });
   };
+
+  const supportedLanguages = [
+    { code: 'en-US', name: 'English (US)', flag: '🇺🇸' },
+    { code: 'en-GB', name: 'English (UK)', flag: '🇬🇧' },
+    { code: 'hi-IN', name: 'Hindi', flag: '🇮🇳' },
+    { code: 'pa-IN', name: 'Punjabi', flag: '🇮🇳' },
+    { code: 'gu-IN', name: 'Gujarati', flag: '🇮🇳' },
+    { code: 'bn-IN', name: 'Bengali', flag: '🇮🇳' },
+    { code: 'ta-IN', name: 'Tamil', flag: '🇮🇳' },
+    { code: 'te-IN', name: 'Telugu', flag: '🇮🇳' },
+    { code: 'kn-IN', name: 'Kannada', flag: '🇮🇳' },
+    { code: 'ml-IN', name: 'Malayalam', flag: '🇮🇳' },
+    { code: 'mr-IN', name: 'Marathi', flag: '🇮🇳' },
+    { code: 'ur-IN', name: 'Urdu', flag: '🇮🇳' },
+    { code: 'es-ES', name: 'Spanish', flag: '🇪🇸' },
+    { code: 'fr-FR', name: 'French', flag: '🇫🇷' },
+    { code: 'de-DE', name: 'German', flag: '🇩🇪' },
+    { code: 'it-IT', name: 'Italian', flag: '🇮🇹' },
+    { code: 'pt-BR', name: 'Portuguese', flag: '🇧🇷' },
+    { code: 'ru-RU', name: 'Russian', flag: '🇷🇺' },
+    { code: 'ja-JP', name: 'Japanese', flag: '🇯🇵' },
+    { code: 'ko-KR', name: 'Korean', flag: '🇰🇷' },
+    { code: 'zh-CN', name: 'Chinese (Simplified)', flag: '🇨🇳' },
+    { code: 'ar-SA', name: 'Arabic', flag: '🇸🇦' }
+  ];
 
   const handleVoiceInput = () => {
     if (!speechSupported) {
@@ -415,6 +537,42 @@ const ChatBox = () => {
                     <h4 className="text-sm font-medium">Speech Settings</h4>
                     <div className="grid grid-cols-1 gap-4">
                       <div>
+                        <label className="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Language</label>
+                        <select
+                          value={ttsSettings.language}
+                          onChange={(e) => handleTtsSettingChange('language', e.target.value)}
+                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                        >
+                          {supportedLanguages.map(lang => {
+                            const hasVoices = languageVoices[lang.code] && languageVoices[lang.code].length > 0;
+                            return (
+                              <option key={lang.code} value={lang.code} disabled={!hasVoices}>
+                                {lang.flag} {lang.name} {!hasVoices ? '(Not Available)' : ''}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      {languageVoices[ttsSettings.language] && languageVoices[ttsSettings.language].length > 1 && (
+                        <div>
+                          <label className="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Voice</label>
+                          <select
+                            value={ttsSettings.voice?.name || ''}
+                            onChange={(e) => {
+                              const selectedVoice = languageVoices[ttsSettings.language].find(v => v.name === e.target.value);
+                              handleTtsSettingChange('voice', selectedVoice);
+                            }}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                          >
+                            {languageVoices[ttsSettings.language].map(voice => (
+                              <option key={voice.name} value={voice.name}>
+                                {voice.name} {voice.gender ? `(${voice.gender})` : ''}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                      <div>
                         <label className="text-xs text-gray-600 dark:text-gray-400">Volume: {Math.round(ttsSettings.volume * 100)}%</label>
                         <input
                           type="range"
@@ -449,6 +607,11 @@ const ChatBox = () => {
                           onChange={(e) => handleTtsSettingChange('pitch', parseFloat(e.target.value))}
                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                         />
+                      </div>
+                      <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          💡 Auto-detection: The system will automatically detect Hindi, Punjabi, and other regional languages in messages.
+                        </p>
                       </div>
                     </div>
                   </div>
